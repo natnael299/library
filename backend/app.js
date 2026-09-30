@@ -302,7 +302,7 @@ app.post("/login", async (req, res) => {
 
   //check is the user is in the db or not
   if (rows.length == 0)
-    return res.status(401).json({ error: "User not found" });
+    return res.status(401).json({ error: "Account not found" });
   const user = rows[0];
 
   //check if the password matches
@@ -311,7 +311,7 @@ app.post("/login", async (req, res) => {
 
   const payload = {
     userId: user.id,
-    username: user.name,
+    name: user.name,
     role: user.role,
   };
 

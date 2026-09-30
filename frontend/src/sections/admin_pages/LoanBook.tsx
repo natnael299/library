@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import api from "@/api";
+import api from "@/types/api";
 import { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
 import type { Book } from "@/types";

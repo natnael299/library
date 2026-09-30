@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "@/api";
+import api from "@/types/api";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -77,43 +77,70 @@ function Home() {
 
   return (
     <main>
-      <h1 className="text-3xl mt-5">Hae kirjoja</h1>
-      <p className="text-xl my-1">
-        Hae kirja nimen tai kirjoittajan perusteella.
-      </p>
-      <div className="border-1 mt-2 px-4 border-black h-10 flex items-center gap-3 w-fit border rounded-sm">
-        <Search />
-        <input
-          className="h-full w-full border-hidden outline-hidden"
-          placeholder="Hae kirjan tai kirjoittajan nimi"
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            getBooks();
-          }}
-          required
-        />
+      <h1 className="text-3xl my-5 ml-5">
+        Tervetuloa järjestelmän{" "}
+        <span className="text-blue-800">{user.name.split(" ")[0]}</span>
+      </h1>
+
+      <div className="max-w-md ml-2">
+        <label
+          htmlFor="search"
+          className="block mb-2.5 text-sm font-medium text-heading sr-only "
+        >
+          Kirjan tai Kirjotajan nimi
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none mr-4">
+            <Search size={20} />
+          </div>
+          <input
+            type="search"
+            id="search"
+            className="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            placeholder=" Kirjan tai Kirjotajan nimi"
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              getBooks();
+            }}
+            required
+          />
+        </div>
       </div>
 
       <div className="my-5 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
         {books.length > 0 ? (
           <>
             {books.map((b) => (
-              <Card key={b.id}>
-                <CardHeader>
-                  <CardTitle>Title: {b.title}</CardTitle>
-                  <CardDescription>Writer: {b.writer}</CardDescription>
+              <Card
+                key={b.id}
+                className="h-full rounded-lg border border-border/70 shadow-sm transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md"
+              >
+                <CardHeader className="gap-1.5 pb-2">
+                  <CardTitle className="text-lg font-semibold leading-snug">
+                    Title: {b.title}
+                  </CardTitle>
+                  <CardDescription className="text-sm">
+                    Writer: {b.writer}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent className="flex items-center justify-between gap-4">
-                  <Label className="text-muted-foreground">
-                    published on {b.publishing_date}
+                <CardContent className="flex flex-wrap items-center justify-between gap-3">
+                  <Label className="text-xs text-muted-foreground">
+                    published on{" "}
+                    {new Date(b.publishing_date).toLocaleDateString("fi-FI")}
                   </Label>
-                  <Label className="text-muted-foreground">
+                  <Label
+                    className={`rounded-md px-2.5 py-1 text-xs font-medium ${
+                      b.available_copies > 0
+                        ? "bg-emerald-50 text-emerald-700"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
                     {b.available_copies}/{b.total_copies} Available
                   </Label>
                 </CardContent>
-                <CardFooter>
+                <CardFooter className="border-t border-border/60 bg-muted/30">
                   <Button
-                    className="w-full cursor-pointer hover:bg-primary/80"
+                    className="w-full cursor-pointer shadow-sm bg-blue-500 text-white hover:bg-primary/90"
                     disabled={b.available_copies == 0}
                     onClick={() => borrowBook(b.id)}
                   >

@@ -1,4 +1,4 @@
-import api from "@/api";
+import api from "@/types/api";
 import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
 import type { Book } from "@/types";

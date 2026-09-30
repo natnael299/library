@@ -1,4 +1,4 @@
-import api from "@/api";
+import api from "@/types/api";
 import type { User } from "@/types";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";

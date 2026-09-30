@@ -23,7 +23,10 @@ function AdminHeader() {
   ];
   return (
     <header className="flex items-center justify-between px-1 w-full border-b-2 bg-black text-white">
-      <img src={logo} className="h-20" />
+      <div className="flex items-center text-xl">
+        <img src={logo} className="h-20" />
+        <h2>Library</h2>
+      </div>
       <div className="flex items-center gap-2">
         {links.map((l) => (
           <Link to={l.link} key={l.link}>

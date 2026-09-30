@@ -1,6 +1,6 @@
 export type User = {
-  userId: number;
   name: string;
+  userId: number;
   role: string;
 };
 

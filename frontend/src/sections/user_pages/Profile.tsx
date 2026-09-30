@@ -1,4 +1,4 @@
-import api from "@/api";
+import api from "@/types/api";
 import { useEffect, useState } from "react";
 import type { User } from "@/types";
 import { useOutletContext } from "react-router-dom";
@@ -36,7 +36,7 @@ function Profile() {
   return (
     <div className="w-full max-w-sm bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs mt-10 ml-10">
       <form action="#" onSubmit={updateInfo}>
-        <h5 className="text-xl font-semibold text-heading mb-6">
+        <h5 className="text-xl font-semibold text-heading mb-6 ml-20">
           Update your info
         </h5>
         <div className="mb-4">
@@ -95,7 +95,7 @@ function Profile() {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[335px]"
         >
           Update Your Info
         </button>

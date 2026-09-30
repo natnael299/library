@@ -1,11 +1,12 @@
 import {
   Card,
+  CardHeader,
   CardDescription,
   CardTitle,
   CardContent,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import api from "@/api";
+import api from "@/types/api";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import type { User, LoansType } from "@/types";
@@ -44,30 +45,39 @@ function Loans() {
           </p>
           <div className="my-5 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {loans.map((l) => (
-              <Card className="max-w-100 p-4" key={l.id}>
-                <div className="flex items-center justify-between">
-                  <div className="flex flex-col gap-y-2 items-center justify-between">
-                    <CardTitle>{l.title}</CardTitle>
-                    <CardDescription>
-                      {l.writer} . lainattu {l.reservation_date}
-                    </CardDescription>
-                  </div>
+              <Card
+                className="h-full rounded-lg border border-border/70 bg-card p-5 shadow-sm transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-md"
+                key={l.id}
+              >
+                <CardHeader className="gap-1 px-0 pb-0">
+                  <CardTitle className="break-words text-lg font-semibold">
+                    {l.title}
+                  </CardTitle>
+                  <CardDescription className="leading-relaxed">
+                    {l.writer} · lainattu{" "}
+                    {new Date(l.reservation_date).toLocaleDateString("fi-FI")}
+                  </CardDescription>
+                </CardHeader>
 
-                  <CardContent className="flex flex-col gap-y-2 items-center justify-between gap-4">
-                    {calculateDays(l.due_date) == 0 ? (
-                      <Label>Palauttaa tänään</Label>
-                    ) : calculateDays(l.due_date) < 0 ? (
-                      <Label>
-                        Myöhässä {Math.abs(calculateDays(l.due_date))} pv
-                      </Label>
-                    ) : (
-                      <Label className="text-muted-foreground">
-                        Eräpäivä {l.due_date}, {calculateDays(l.due_date)} pv
-                        jäljellä
-                      </Label>
-                    )}
-                  </CardContent>
-                </div>
+                <CardContent className="flex w-full flex-col items-start gap-2 rounded-md border-t border-border/60 bg-muted/30 px-0 pt-3">
+                  <span className="text-xs font-medium text-muted-foreground">
+                    Palautuspäivä{" "}
+                    {new Date(l.due_date).toLocaleDateString("fi-FI")}
+                  </span>
+                  {calculateDays(l.due_date) == 0 ? (
+                    <Label className="rounded-full bg-amber-100 px-3 py-1 text-xs font-semibold text-amber-800">
+                      Palauttaa tänään
+                    </Label>
+                  ) : calculateDays(l.due_date) < 0 ? (
+                    <Label className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-800">
+                      Myöhässä {Math.abs(calculateDays(l.due_date))} pv
+                    </Label>
+                  ) : (
+                    <Label className="rounded-full bg-emerald-100 px-3 py-1 text-xs font-semibold text-emerald-800">
+                      {calculateDays(l.due_date)} pv jäljellä
+                    </Label>
+                  )}
+                </CardContent>
               </Card>
             ))}
           </div>

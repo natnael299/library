@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "./api";
+import api from "./types/api";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import type { User } from "./types";
 
