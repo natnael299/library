@@ -34,14 +34,7 @@ function Login() {
     <main className="bg-gray-50 px-4 md:px-8 dark:bg-neutral-900">
       <div className="min-h-screen flex flex-col items-center justify-center">
         <div className="max-w-md w-full">
-          <a href="#">
-            <img
-              src={logo}
-              alt="logo"
-              className="w-14 min-h-14 mb-8 mx-auto block"
-            />
-          </a>
-
+          <img src={logo} alt="logo" className="w-34 min-h-34 mx-auto block" />
           <div className="p-6 rounded-lg bg-white border border-slate-300 shadow-xs md:p-8 dark:bg-neutral-800 dark:border-neutral-700">
             <h1 className="text-slate-900 text-center text-3xl font-bold dark:text-slate-50">
               Sign in
@@ -59,7 +52,7 @@ function Login() {
                   type="email"
                   id="email"
                   name="email"
-                  placeholder="john@readymadeui.com"
+                  placeholder="natnael@example.com"
                   required
                   className="px-3 py-2.5 text-sm text-slate-900 rounded-md bg-white w-full outline-1 -outline-offset-1 outline-slate-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:text-slate-50 dark:bg-neutral-700 dark:outline-neutral-600"
                 />

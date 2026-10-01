@@ -111,7 +111,7 @@ function Profile() {
 
         {/* Logout */}
         <button
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[335px]"
+          className="bg-red-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mt-4 rounded w-[335px]"
           onClick={logOut}
         >
           Logout
