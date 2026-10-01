@@ -9,12 +9,13 @@ import { Label } from "@/components/ui/label";
 import api from "@/types/api";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import type { User, LoansType } from "@/types";
+import type { LoansType } from "@/types";
+import type { ProtectedRouteContext } from "@/ProtectedRoute";
 
 function Loans() {
   const [loans, setLoans] = useState<LoansType[]>([]);
   const [err, setErr] = useState("");
-  const user = useOutletContext<User>();
+  const { user } = useOutletContext<ProtectedRouteContext>();
   const [today] = useState(() => Date.now());
 
   useEffect(() => {

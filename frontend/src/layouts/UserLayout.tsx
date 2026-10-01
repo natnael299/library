@@ -1,14 +1,14 @@
+import type { ProtectedRouteContext } from "@/ProtectedRoute";
 import UserHeader from "@/sections/headers/UserHeader";
-import type { User } from "@/types";
 import { Outlet, useOutletContext } from "react-router-dom";
 
 function UserLayout() {
-  const user = useOutletContext<User>();
+  const context = useOutletContext<ProtectedRouteContext>();
   return (
     <>
       <UserHeader />
       <main>
-        <Outlet context={user} />
+        <Outlet context={context} />
       </main>
     </>
   );

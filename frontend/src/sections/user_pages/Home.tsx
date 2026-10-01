@@ -12,9 +12,10 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useOutletContext } from "react-router-dom";
-import type { User, Book } from "@/types";
+import type { Book } from "@/types";
 import Snackbar from "@mui/material/Snackbar";
 import Pagination from "@mui/material/Pagination";
+import type { ProtectedRouteContext } from "@/ProtectedRoute";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -23,7 +24,7 @@ function Home() {
   const [page, setPage] = useState(1);
   const [totalP, setTotalPage] = useState(1);
   const [borrowMsg, setBorrowMsg] = useState<string | null>(null);
-  const user = useOutletContext<User>();
+  const { user } = useOutletContext<ProtectedRouteContext>();
   const offset = (page - 1) * 15;
 
   //get all the Books at first

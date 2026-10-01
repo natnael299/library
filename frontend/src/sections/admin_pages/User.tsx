@@ -4,7 +4,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { LoansType } from "@/types";
 import LoanHistory from "./components/UserComp/LoanHistory";
 import DeleteAccount from "./components/UserComp/DeleteAccount";
-import ClearDebtComp from "./components/UserComp/ClearDebtComp";
 import UserInfoComp from "./components/UserComp/UserInfoComp";
 
 export type User = {
@@ -90,12 +89,20 @@ function User() {
       <main>
         {/* Logged in users info */}
         <div>
-          <UserInfoComp userInfo={userInfo} setUserInfo={setUserInfo} />
+          <UserInfoComp
+            userInfo={userInfo}
+            setUserInfo={setUserInfo}
+            clearDebtMsg={clearDebtMsg}
+            ClearDebt={ClearDebt}
+            role={role}
+          />
+
           {role == "user" && (
-            <ClearDebtComp
-              userInfo={userInfo}
-              clearDebtMsg={clearDebtMsg}
-              ClearDebt={ClearDebt}
+            <LoanHistory
+              loans={loans}
+              loanStatusMsg={loanStatusMsg}
+              ChangeLoanStatus={ChangeLoanStatus}
+              setLoanStatustMsg={setLoanStatustMsg}
             />
           )}
 
@@ -107,15 +114,6 @@ function User() {
             />
           )}
         </div>
-
-        {role == "user" && (
-          <LoanHistory
-            loans={loans}
-            loanStatusMsg={loanStatusMsg}
-            ChangeLoanStatus={ChangeLoanStatus}
-            setLoanStatustMsg={setLoanStatustMsg}
-          />
-        )}
       </main>
     )
   );

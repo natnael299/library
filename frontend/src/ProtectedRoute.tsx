@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
 import api from "./types/api";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import type { User } from "./types";
+
+export type ProtectedRouteContext = {
+  user: User;
+  setUser: Dispatch<SetStateAction<User | null>>;
+};
 
 function ProtectedRoute() {
   const location = useLocation();
@@ -34,7 +39,7 @@ function ProtectedRoute() {
     return <Navigate to="/dashboard" replace />;
   }
 
-  return <Outlet context={user} />;
+  return <Outlet context={{ user, setUser }} />;
 }
 
 export default ProtectedRoute;

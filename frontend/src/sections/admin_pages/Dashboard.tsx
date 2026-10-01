@@ -54,17 +54,29 @@ function Dashboard() {
 
   return (
     <main>
-      <div className="border-1 mt-2 px-4 border-black h-10 flex items-center gap-3 w-fit border rounded-sm">
-        <Search />
-        <input
-          className="h-full w-full border-hidden outline-hidden"
-          placeholder="Hae kirjan tai kirjoittajan nimi"
-          onChange={(e) => {
-            setSearchTerm(e.target.value);
-            getBooks();
-          }}
-          required
-        />
+      <div className="max-w-md ml-2 my-6">
+        <label
+          htmlFor="search"
+          className="block mb-2.5 text-sm font-medium text-heading sr-only "
+        >
+          Kirjan tai Kirjotajan nimi
+        </label>
+        <div className="relative">
+          <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none mr-4">
+            <Search size={20} />
+          </div>
+          <input
+            type="search"
+            id="search"
+            className="block w-full p-3 ps-9 bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand shadow-xs placeholder:text-body"
+            placeholder=" Kirjan tai Kirjotajan nimi"
+            onChange={(e) => {
+              setSearchTerm(e.target.value);
+              getBooks();
+            }}
+            required
+          />
+        </div>
       </div>
       {books.length > 0 ? (
         <BookList

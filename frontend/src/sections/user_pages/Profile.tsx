@@ -1,7 +1,7 @@
 import api from "@/types/api";
 import { useEffect, useState } from "react";
-import type { User } from "@/types";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
+import type { ProtectedRouteContext } from "@/ProtectedRoute";
 
 function Profile() {
   const [profile, setProfile] = useState({
@@ -11,7 +11,8 @@ function Profile() {
   });
   const [message, setMessage] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
-  const user = useOutletContext<User>();
+  const navigate = useNavigate();
+  const { user, setUser } = useOutletContext<ProtectedRouteContext>();
   const id = user.userId;
 
   useEffect(() => {
@@ -23,7 +24,7 @@ function Profile() {
   }, [id]);
 
   //update functionality
-  const updateInfo: React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const updateInfo: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     const res = await api.put("/profile/" + user.userId, profile);
     if (res.status === 200) {
@@ -33,6 +34,14 @@ function Profile() {
     }
   };
 
+  //logout functionality
+  const logOut = async () => {
+    const res = await api.post(`/logout`);
+    if (res.status == 200) {
+      setUser(null);
+      navigate("/login");
+    }
+  };
   return (
     <div className="w-full max-w-sm bg-neutral-primary-soft p-6 border border-default rounded-base shadow-xs mt-10 ml-10">
       <form action="#" onSubmit={updateInfo}>
@@ -98,6 +107,14 @@ function Profile() {
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[335px]"
         >
           Update Your Info
+        </button>
+
+        {/* Logout */}
+        <button
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded w-[335px]"
+          onClick={logOut}
+        >
+          Logout
         </button>
         {message && <p>{message}</p>}
         {err && <p>{err}</p>}

@@ -292,6 +292,14 @@ app.put("/profile/:id", isAuthenticated, async (req, res) => {
   }
 });
 
+//logout
+app.post("/logout", async (_, res) => {
+  res.clearCookie("token");
+  res.status(200).json({
+    message: "Successfully logged out!!",
+  });
+});
+
 //login endpoint
 app.post("/login", async (req, res) => {
   const sql = "SELECT * FROM users WHERE email=?";

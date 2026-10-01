@@ -1,71 +1,74 @@
 type CreateUserProps = {
-  Create: React.FormEventHandler<HTMLFormElement>;
+  Create: React.SubmitEventHandler<HTMLFormElement>;
   role: string | undefined;
   createMsg: string | null;
 };
 
 function CreateUser({ Create, role, createMsg }: CreateUserProps) {
   return (
-    <form action="#" onSubmit={Create}>
-      <h5 className="text-xl font-semibold text-heading mb-6">
-        Create a New {role}.
-      </h5>
-      <div className="mb-4">
-        <label
-          htmlFor="email"
-          className="block mb-2.5 text-sm font-medium text-heading"
+    <>
+      <form action="#" onSubmit={Create} className="max-w-md ml-3 my-7">
+        <h5 className="text-xl font-semibold text-heading mb-2">
+          Create a New {role}.
+        </h5>
+        <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="email"
+            name="email"
+            id="email"
+            className="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+            placeholder=" "
+            required
+          />
+          <label
+            htmlFor="email"
+            className="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >
+            Email address
+          </label>
+        </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="username"
+            name="username"
+            id="username"
+            className="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+            placeholder=" "
+            required
+          />
+          <label
+            htmlFor="username"
+            className="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >
+            username
+          </label>
+        </div>
+        <div className="relative z-0 w-full mb-5 group">
+          <input
+            type="password"
+            name="password"
+            id="password"
+            className="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer"
+            placeholder=" "
+            required
+          />
+          <label
+            htmlFor="password"
+            className="absolute text-sm text-body duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:start-0 peer-focus:text-fg-brand peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6 rtl:peer-focus:translate-x-1/4 rtl:peer-focus:left-auto"
+          >
+            Password
+          </label>
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
-          Your email
-        </label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-          placeholder="example@company.com"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="username"
-          className="block mb-2.5 text-sm font-medium text-heading"
-        >
-          Your username
-        </label>
-        <input
-          type="username"
-          id="username"
-          name="username"
-          className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-          placeholder="username"
-          required
-        />
-      </div>
-      <div className="mb-4">
-        <label
-          htmlFor="password"
-          className="block mb-2.5 text-sm font-medium text-heading"
-        >
-          Password
-        </label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-          placeholder="************"
-          required
-        />
-      </div>
-      <button
-        type="submit"
-        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-      >
-        Create
-      </button>
-      {createMsg && <p>{createMsg}</p>}
-    </form>
+          Create
+        </button>
+
+        {createMsg && <p>{createMsg}</p>}
+      </form>
+    </>
   );
 }
 

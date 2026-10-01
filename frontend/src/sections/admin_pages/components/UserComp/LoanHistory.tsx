@@ -1,12 +1,4 @@
 import type { LoansType } from "@/types";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
 import type { Dispatch, SetStateAction } from "react";
 
@@ -27,54 +19,53 @@ function LoanHistory({
     <>
       {loans.length > 0 ? (
         <div>
-          <h1>Users Booking History</h1>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Title</TableCell>
-                  <TableCell align="right">Writer</TableCell>
-                  <TableCell align="right">Reservation Date</TableCell>
-                  <TableCell align="right">Due Date</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {loans.map((l) => (
-                  <TableRow
-                    key={l.id}
-                    sx={{
-                      "&:last-child td, &:last-child th": { border: 0 },
-                    }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {l.title}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {l.writer}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {l.reservation_date}
-                    </TableCell>
-                    <TableCell component="th" scope="row">
-                      {l.due_date}
-                    </TableCell>
-                    <TableCell align="right">
-                      {l.return_date !== null ? (
-                        <Button>Returned</Button>
-                      ) : (
-                        <Button>On Loan</Button>
-                      )}
-                    </TableCell>
-                    {l.return_date !== null && (
-                      <Button onClick={() => ChangeLoanStatus(l.id)}>
-                        Mark As Returned
-                      </Button>
+          <h1 className="text-2xl my-8 text-center">Users Booking History</h1>
+          <table className="w-full border-collapse border border-blue-500 max-w-3xl my-4 mx-auto">
+            <thead>
+              <tr className="bg-blue-500 text-white">
+                <th className="py-2 px-4 text-left">Title</th>
+                <th className="py-2 px-4 text-left">Writer</th>
+                <th className="py-2 px-4 text-left">Reservation Date</th>
+                <th className="py-2 px-4 text-left">Due Date</th>
+                <th className="py-2 px-4 text-left"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {loans.map((l) => (
+                <tr className="bg-white border-b border-blue-500" key={l.id}>
+                  <td className="py-2 px-4">{l.title}</td>
+                  <td className="py-2 px-4">{l.writer}</td>
+                  <td className="py-2 px-4">
+                    {new Date(l.reservation_date).toLocaleDateString("fi-FI")}
+                  </td>
+                  <td className="py-2 px-4">
+                    {new Date(l.due_date).toLocaleDateString("fi-FI")}
+                  </td>
+                  <td className="py-2 px-4">
+                    {l.return_date == null ? (
+                      <button className="bg-red-500 text-white p-2">
+                        On Loan
+                      </button>
+                    ) : (
+                      <button className="bg-green-500 text-white p-2">
+                        Returned
+                      </button>
                     )}
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                  </td>
+                  {l.return_date == null && (
+                    <td className="py-2 px-4">
+                      <button
+                        onClick={() => ChangeLoanStatus(l.id)}
+                        className="bg-blue-500 text-white p-2"
+                      >
+                        Mark As Returned
+                      </button>
+                    </td>
+                  )}
+                </tr>
+              ))}
+            </tbody>
+          </table>
 
           {/* Display a message on update */}
           <Snackbar

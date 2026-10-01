@@ -18,7 +18,7 @@ function CreateBook() {
     borrowed: 0,
   });
 
-  const addFun: React.FormEventHandler<HTMLFormElement> = async (e) => {
+  const addFun: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
     if (type == "book") {
       try {

@@ -43,7 +43,7 @@ function Action() {
   };
 
   //create a new user/admin
-  const Create: React.FormEventHandler<HTMLFormElement> = (e) => {
+  const Create: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
     const values = {

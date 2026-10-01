@@ -1,10 +1,3 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
 import Pagination from "@mui/material/Pagination";
 import { Link } from "react-router-dom";
 import type { User } from "../../User";
@@ -25,43 +18,36 @@ function UsersList({ users, role, totalP, page, changePage }: UsersListProps) {
     <>
       {users.length > 0 ? (
         <>
-          <h1>{role}'s List</h1>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
-              <TableHead>
-                <TableRow>
-                  <TableCell>Id</TableCell>
-                  <TableCell align="right">Name</TableCell>
-                  <TableCell align="right">Email</TableCell>
-                  {role == "user" && <TableCell align="right">Debt</TableCell>}
-                  <TableCell align="right"></TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {users.map((u) => (
-                  <TableRow
-                    key={u.id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell component="th" scope="row">
-                      {u.id}
-                    </TableCell>
-                    <TableCell align="right">{u.name}</TableCell>
-                    <TableCell align="right">{u.email}</TableCell>
-                    {role == "user" && (
-                      <TableCell align="right">{u.debt} €</TableCell>
-                    )}
+          <h1 className="text-2xl text-center my-4">{role}'s List</h1>
+          <table className="w-full border-collapse border border-blue-500 max-w-3xl my-6 mx-auto">
+            <thead>
+              <tr className="bg-blue-500 text-white">
+                <th className="py-2 px-4 text-left">Id</th>
+                <th className="py-2 px-4 text-left">Name</th>
+                <th className="py-2 px-4 text-left">Email</th>
+                {role == "user" && (
+                  <th className="py-2 px-4 text-left">Debt</th>
+                )}
+                <th className="py-2 px-4 text-left"></th>
+              </tr>
+            </thead>
+            <tbody>
+              {users.map((u) => (
+                <tr className="bg-white border-b border-blue-500" key={u.id}>
+                  <td className="py-2 px-4">{u.id}</td>
+                  <td className="py-2 px-4">{u.name}</td>
+                  <td className="py-2 px-4">{u.email}</td>
+                  {role == "user" && <td className="py-2 px-4">{u.debt} €</td>}
 
-                    <TableCell align="right">
-                      <Link to={`/ind/${u.id}/${role}`}>
-                        Detailed {role}'s Info
-                      </Link>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer>
+                  <td className="py-2 px-4">
+                    <Link to={`/ind/${u.id}/${role}`}>
+                      Detailed {role}'s Info
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
           <Pagination count={totalP} page={page} onChange={changePage} />
         </>
       ) : (
