@@ -70,7 +70,7 @@ function Home() {
 
   //change pages
   const changePage = (
-    e: React.ChangeEvent<unknown, Element> | null,
+    _e: React.ChangeEvent<unknown, Element> | null,
     value: number,
   ) => {
     setPage(value);
