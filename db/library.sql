@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 01, 2026 at 02:16 PM
+-- Generation Time: Oct 01, 2026 at 04:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -27,13 +27,15 @@ SET time_zone = "+00:00";
 -- Table structure for table `books`
 --
 
-CREATE TABLE `books` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `books` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `isbn` varchar(20) NOT NULL,
   `title` varchar(255) NOT NULL,
   `publishing_date` date NOT NULL,
-  `writer` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `writer` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `isbn` (`isbn`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `books`
@@ -77,11 +79,13 @@ INSERT INTO `books` (`id`, `isbn`, `title`, `publishing_date`, `writer`) VALUES
 -- Table structure for table `book_copies`
 --
 
-CREATE TABLE `book_copies` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `book_copies` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `book_id` int(11) NOT NULL,
-  `borrowed` tinyint(1) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `borrowed` tinyint(1) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `book_copies`
@@ -125,16 +129,20 @@ INSERT INTO `book_copies` (`id`, `book_id`, `borrowed`) VALUES
 -- Table structure for table `borrowings`
 --
 
-CREATE TABLE `borrowings` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `borrowings` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `book_id` int(11) NOT NULL,
   `book_copy_id` int(11) NOT NULL,
   `reservation_date` datetime NOT NULL,
   `due_date` datetime NOT NULL,
   `return_date` datetime DEFAULT NULL,
-  `penalty` decimal(10,2) NOT NULL DEFAULT 0.00
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `penalty` decimal(10,2) NOT NULL DEFAULT 0.00,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `book_copy_id` (`book_copy_id`),
+  KEY `book_id` (`book_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `borrowings`
@@ -214,14 +222,16 @@ DELIMITER ;
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `email` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL,
   `debt` decimal(10,2) DEFAULT NULL,
-  `role` enum('user','admin') NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  `role` enum('user','admin') NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
@@ -258,68 +268,6 @@ INSERT INTO `users` (`id`, `name`, `email`, `password`, `debt`, `role`) VALUES
 (29, 'Maria Nykänen', 'maria.nykanen@example.com', '$2b$10$JvxC.BQC7HBBvxpNHv4afORVfHCF4FnHJZ54weEd4qqpVIphS91ty', 0.00, 'user'),
 (30, 'Niklas Öhman', 'niklas.ohman@example.com', '$2b$10$JvxC.BQC7HBBvxpNHv4afORVfHCF4FnHJZ54weEd4qqpVIphS91ty', 2.70, 'user'),
 (31, 'natnael', 'nati@admin.com', '$2b$10$TdKUKl9kkau3j0l4L0MiVuZd4eIK349L8JsNRFX2HK5MWZ9CCaiTC', NULL, 'admin');
-
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `books`
---
-ALTER TABLE `books`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `isbn` (`isbn`);
-
---
--- Indexes for table `book_copies`
---
-ALTER TABLE `book_copies`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `book_id` (`book_id`);
-
---
--- Indexes for table `borrowings`
---
-ALTER TABLE `borrowings`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`),
-  ADD KEY `book_copy_id` (`book_copy_id`),
-  ADD KEY `book_id` (`book_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `books`
---
-ALTER TABLE `books`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `book_copies`
---
-ALTER TABLE `book_copies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `borrowings`
---
-ALTER TABLE `borrowings`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
-
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- Constraints for dumped tables
