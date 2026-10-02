@@ -27,6 +27,8 @@ app.use(loansRoutes);
 app.use(profileRoutes);
 app.use(usersRoutes);
 
-app.listen(process.env.DB_PORT, () => {
-  console.log(`The app is running on port ${process.env.PORT}.`);
+const port = process.env.PORT;
+
+app.listen(port, () => {
+  console.log(`The app is running on port ${port}.`);
 });
