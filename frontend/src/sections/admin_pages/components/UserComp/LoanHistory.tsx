@@ -1,4 +1,4 @@
-import type { LoansType } from "@/types";
+import type { LoansType } from "@/types/types";
 import Snackbar from "@mui/material/Snackbar";
 import type { Dispatch, SetStateAction } from "react";
 

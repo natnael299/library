@@ -1,4 +1,4 @@
-import api from "@/types/api";
+import api from "@/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import type { ProtectedRouteContext } from "@/ProtectedRoute";

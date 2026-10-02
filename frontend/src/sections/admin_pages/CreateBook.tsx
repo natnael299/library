@@ -1,4 +1,4 @@
-import api from "@/types/api";
+import api from "@/api";
 import type React from "react";
 import { useState } from "react";
 import { useParams } from "react-router-dom";

@@ -6,10 +6,10 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import api from "@/types/api";
+import api from "@/api";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
-import type { LoansType } from "@/types";
+import type { LoansType } from "@/types/types";
 import type { ProtectedRouteContext } from "@/ProtectedRoute";
 
 function Loans() {

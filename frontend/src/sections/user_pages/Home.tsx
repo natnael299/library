@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "@/types/api";
+import api from "@/api";
 import { Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { useOutletContext } from "react-router-dom";
-import type { Book } from "@/types";
+import type { Book } from "@/types/types";
 import Snackbar from "@mui/material/Snackbar";
 import Pagination from "@mui/material/Pagination";
 import type { ProtectedRouteContext } from "@/ProtectedRoute";

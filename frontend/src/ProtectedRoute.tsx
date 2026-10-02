@@ -1,7 +1,7 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import api from "./types/api";
+import api from "./api";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import type { User } from "./types";
+import type { User } from "./types/types";
 
 export type ProtectedRouteContext = {
   user: User;

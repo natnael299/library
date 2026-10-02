@@ -1,7 +1,7 @@
-import api from "@/types/api";
+import api from "@/api";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import type { LoansType } from "@/types";
+import type { LoansType } from "@/types/types";
 import LoanHistory from "./components/UserComp/LoanHistory";
 import DeleteAccount from "./components/UserComp/DeleteAccount";
 import UserInfoComp from "./components/UserComp/UserInfoComp";

@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import api from "@/types/api";
+import api from "@/api";
 import { useEffect, useState } from "react";
 import Snackbar from "@mui/material/Snackbar";
-import type { Book } from "@/types";
+import type { Book } from "@/types/types";
 import BooksList from "./components/TableComp/BooksList";
 
 function LoanBook() {

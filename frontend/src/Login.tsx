@@ -1,4 +1,4 @@
-import api from "./types/api";
+import api from "./api";
 import logo from "@/assets/logo.png";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";

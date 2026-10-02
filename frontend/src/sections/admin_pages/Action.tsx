@@ -1,4 +1,4 @@
-import api from "@/types/api";
+import api from "@/api";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import CreateUser from "./components/ActionComp/CreateUser";

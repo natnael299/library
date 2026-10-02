@@ -8,7 +8,7 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Pagination from "@mui/material/Pagination";
 import type { ChangeEvent } from "react";
-import type { Book } from "@/types";
+import type { Book } from "@/types/types";
 
 type BookListProps = {
   books: Book[];

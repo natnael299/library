@@ -1,5 +1,5 @@
 import Pagination from "@mui/material/Pagination";
-import type { Book } from "@/types";
+import type { Book } from "@/types/types";
 import type { ChangeEvent } from "react";
 
 type BookListProps = {
