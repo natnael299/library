@@ -44,7 +44,13 @@ router.get("/books", async (req, res) => {
       totalP: Math.ceil(totalCounts[0].total / limit),
     });
   } catch (error) {
-    console.error("GET /books failed:", error);
+    console.error("GET /books failed:", {
+      message: error.message,
+      code: error.code,
+      errno: error.errno,
+      sqlMessage: error.sqlMessage,
+      sql: error.sql,
+    });
     return res.status(500).json({ message: "Could not fetch books" });
   }
 });
