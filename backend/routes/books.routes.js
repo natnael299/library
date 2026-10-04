@@ -19,8 +19,8 @@ router.get("/books", async (req, res) => {
         books.publishing_date,
         COUNT(book_copies.id) AS total_copies,
         SUM(book_copies.borrowed = 0) AS available_copies
-      FROM library.books
-      LEFT JOIN library.book_copies ON books.id = book_copies.book_id
+      FROM railway.books
+      LEFT JOIN railway.book_copies ON books.id = book_copies.book_id
       WHERE books.title LIKE ? OR books.writer LIKE ?
       GROUP BY books.id, books.title, books.writer, books.publishing_date
       ORDER BY books.id
@@ -34,7 +34,7 @@ router.get("/books", async (req, res) => {
       offset,
     ]);
     const [totalCounts] = await db.query(
-      `SELECT COUNT(*) AS total FROM library.books
+      `SELECT COUNT(*) AS total FROM railway.books
        WHERE title LIKE ? OR writer LIKE ?`,
       [`%${term}%`, `%${term}%`],
     );
