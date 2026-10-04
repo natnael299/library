@@ -45,113 +45,148 @@ function CreateBook() {
   return (
     <main>
       {type == "book" ? (
-        <form onSubmit={addFun}>
-          <h1>Add A new Book</h1>
-          <div className="mb-4">
-            <label
-              htmlFor="isbn"
-              className="block mb-2.5 text-sm font-medium text-heading"
-            >
-              Book ISBN
-            </label>
-            <input
-              name="number"
-              type="number"
-              id="isbn"
-              className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-              placeholder="99449595"
-              onChange={(e) => {
-                setBook({ ...book, isbn: Number(e.target.value) });
-              }}
-              required
-            />
+        <form
+          className="max-w-md mx-auto bg-gray-100 shadow-md rounded-md overflow-hidden mt-16"
+          onSubmit={addFun}
+        >
+          <div className="bg-blue-600 text-white p-4 flex justify-between">
+            <div className="font-bold text-lg">Add A New Book</div>
+            <div className="text-lg">
+              <i className="fab fa-cc-visa"></i>
+            </div>
           </div>
+          <div className="p-6">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="isbn"
+              >
+                Book ISBN
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="card_number"
+                type="number"
+                name="isbn"
+                placeholder="7819 920 030"
+                onChange={(e) => {
+                  setBook({ ...book, isbn: Number(e.target.value) });
+                }}
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="title"
-              className="block mb-2.5 text-sm font-medium text-heading"
-            >
-              Book Title
-            </label>
-            <input
-              name="title"
-              type="title"
-              id="title"
-              className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-              placeholder="99449595"
-              onChange={(e) => {
-                setBook({ ...book, title: e.target.value });
-              }}
-              required
-            />
-          </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="title"
+              >
+                Book Title
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="title"
+                id="title"
+                type="text"
+                placeholder="John Doe"
+                onChange={(e) => {
+                  setBook({ ...book, title: e.target.value });
+                }}
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="date"
-              className="block mb-2.5 text-sm font-medium text-heading"
-            >
-              Book Release Date
-            </label>
-            <input
-              name="date"
-              type="datetime"
-              id="date"
-              className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-              placeholder="99449595"
-              onChange={(e) => {
-                setBook({ ...book, publishing_date: e.target.value });
-              }}
-              required
-            />
-          </div>
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="date"
+              >
+                Book Release Date
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="date"
+                id="date"
+                type="datetime"
+                placeholder="01.02.2010"
+                onChange={(e) => {
+                  setBook({ ...book, publishing_date: e.target.value });
+                }}
+                required
+              />
+            </div>
 
-          <div className="mb-4">
-            <label
-              htmlFor="writer"
-              className="block mb-2.5 text-sm font-medium text-heading"
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="writer"
+              >
+                Book Writer
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                name="writer"
+                id="writer"
+                type="text"
+                placeholder="Kevin De bruyne"
+                onChange={(e) => {
+                  setBook({ ...book, writer: e.target.value });
+                }}
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="bg-blue-600 text-white py-2 px-4 rounded font-bold hover:bg-blue-700 focus:outline-none focus:shadow-outline"
             >
-              Book Writer
-            </label>
-            <input
-              name="writer"
-              type="writer"
-              id="writer"
-              className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-              placeholder="99449595"
-              onChange={(e) => {
-                setBook({ ...book, writer: e.target.value });
-              }}
-              required
-            />
+              Add Book
+            </button>
           </div>
-          <button type="submit">Add Book</button>
           {msg && type == "book" && <div>{msg}</div>}
         </form>
       ) : (
-        <form onSubmit={addFun}>
-          <h1>Add A new Book Copy</h1>
-          <div className="mb-4">
-            <label
-              htmlFor="book_id"
-              className="block mb-2.5 text-sm font-medium text-heading"
-            >
-              Book Id
-            </label>
-            <input
-              type="book_id"
-              name="book_id"
-              id="book_id"
-              className="bg-neutral-secondary-medium border border-default-medium text-heading text-sm rounded-base focus:ring-brand focus:border-brand block w-full px-3 py-2.5 shadow-xs placeholder:text-body"
-              placeholder="username"
-              onChange={(e) => {
-                setBookCopy({ ...bookCopy, book_id: Number(e.target.value) });
-              }}
-              required
-            />
+        <form
+          className="max-w-md mx-auto bg-gray-100 shadow-md rounded-md overflow-hidden mt-16"
+          onSubmit={addFun}
+        >
+          <div className="bg-blue-600 text-white p-4 flex justify-between">
+            <div className="font-bold text-lg">A New Book Copy</div>
+            <div className="text-lg">
+              <i className="fab fa-cc-visa"></i>
+            </div>
           </div>
-          <button type="submit">Add a book copy</button>
+          <div className="p-6">
+            <div className="mb-4">
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="book_id"
+              >
+                Book Id
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="book_id"
+                type="number"
+                name="book_id"
+                placeholder="eg. 10"
+                onChange={(e) => {
+                  setBookCopy({
+                    ...bookCopy,
+                    book_id: Number(e.target.value),
+                  });
+                }}
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="bg-blue-600 text-white py-2 px-4 rounded font-bold hover:bg-blue-700 focus:outline-none focus:shadow-outline"
+            >
+              Add a book copy
+            </button>
+          </div>
           {msg && type == "copy" && <div>{msg}</div>}
         </form>
       )}

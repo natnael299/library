@@ -89,9 +89,20 @@ function Dashboard() {
       ) : (
         <div>Book Not Found</div>
       )}
-      <div>
-        <Link to={`/addBook/book`}>Add a Book and a Copy</Link>
-        <Link to={`/addBook/copy`}>Add a Copy</Link>
+
+      <div className="space-x-4 my-6 ml-4">
+        <Link
+          to={`/addBook/book`}
+          className="border-1 p-2 rounded-sm bg-green-800 text-white"
+        >
+          Add a Book and a Copy
+        </Link>
+        <Link
+          to={`/addBook/copy`}
+          className="border-1 p-2 rounded-sm bg-green-800 text-white"
+        >
+          Add a Copy
+        </Link>
       </div>
     </main>
   );
