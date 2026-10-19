@@ -6,6 +6,11 @@ import { isAuthenticated } from "../middleware/auth.middleware.js";
 
 const router = Router();
 const jwtSecret = process.env.JWT_SECRET || "jwt_secret_key";
+const cookieOptions = {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+};
 
 // Log in with an email and password.
 router.post("/login", async (req, res) => {
@@ -32,9 +37,7 @@ router.post("/login", async (req, res) => {
     };
     const token = jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
     res.cookie("token", token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: "none",
+      ...cookieOptions,
       maxAge: 60 * 60 * 1000,
     });
 
@@ -49,7 +52,7 @@ router.post("/login", async (req, res) => {
 
 // Log out and clear the authentication cookie.
 router.post("/logout", (_, res) => {
-  res.clearCookie("token");
+  res.clearCookie("token", cookieOptions);
   return res.status(200).json({ message: "Successfully logged out!!" });
 });
 
