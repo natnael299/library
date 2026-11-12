@@ -1,7 +1,7 @@
 import api from "@/api";
 import { useEffect, useState } from "react";
-import { useNavigate, useOutletContext } from "react-router-dom";
-import type { ProtectedRouteContext } from "@/ProtectedRoute";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "@/auth";
 
 function AdminProfile() {
   const [profile, setProfile] = useState({
@@ -12,8 +12,8 @@ function AdminProfile() {
   const [message, setMessage] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { user, setUser } = useOutletContext<ProtectedRouteContext>();
-  const id = user.userId;
+  const { user, setUser, setAuthenticated } = useAuth();
+  const id = user?.userId;
 
   useEffect(() => {
     api.get("/profile/" + id).then((res) => {
@@ -26,7 +26,7 @@ function AdminProfile() {
   //update functionality
   const updateInfo: React.SubmitEventHandler<HTMLFormElement> = async (e) => {
     e.preventDefault();
-    const res = await api.put("/profile/" + user.userId, profile);
+    const res = await api.put("/profile/" + user?.userId, profile);
     if (res.status === 200) {
       setMessage("Successfully Updated!!");
     } else {
@@ -39,6 +39,7 @@ function AdminProfile() {
     const res = await api.post(`/logout`);
     if (res.status == 200) {
       setUser(null);
+      setAuthenticated(false);
       navigate("/login");
     }
   };

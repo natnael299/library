@@ -11,11 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
-import { useOutletContext } from "react-router-dom";
 import type { Book } from "@/types/types";
 import Snackbar from "@mui/material/Snackbar";
 import Pagination from "@mui/material/Pagination";
-import type { ProtectedRouteContext } from "@/ProtectedRoute";
+import { useAuth } from "@/auth";
 
 function Home() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -24,7 +23,7 @@ function Home() {
   const [page, setPage] = useState(1);
   const [totalP, setTotalPage] = useState(1);
   const [borrowMsg, setBorrowMsg] = useState<string | null>(null);
-  const { user } = useOutletContext<ProtectedRouteContext>();
+  const { user } = useAuth();
   const offset = (page - 1) * 15;
 
   //get all the Books at first
@@ -58,7 +57,7 @@ function Home() {
 
   //loan a book
   const borrowBook = async (book_id: number) => {
-    const id = user.userId;
+    const id = user?.userId;
     const res = await api.post("/loan", {
       id,
       book_id,
@@ -80,7 +79,7 @@ function Home() {
     <main>
       <h1 className="text-3xl my-5 ml-5">
         Tervetuloa järjestelmän{" "}
-        <span className="text-blue-800">{user.name.split(" ")[0]}</span>
+        <span className="text-blue-800">{user?.name.split(" ")[0]}</span>
       </h1>
 
       <div className="max-w-md ml-2">

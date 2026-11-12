@@ -8,25 +8,24 @@ import {
 import { Label } from "@/components/ui/label";
 import api from "@/api";
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
 import type { LoansType } from "@/types/types";
-import type { ProtectedRouteContext } from "@/ProtectedRoute";
+import { useAuth } from "@/auth";
 
 function Loans() {
   const [loans, setLoans] = useState<LoansType[]>([]);
   const [err, setErr] = useState("");
-  const { user } = useOutletContext<ProtectedRouteContext>();
+  const { user } = useAuth();
   const [today] = useState(() => Date.now());
 
   useEffect(() => {
-    api.get("/loans/" + user.userId).then((res) => {
+    api.get("/loans/" + user?.userId).then((res) => {
       if (res.status == 200) {
         setLoans(res.data.data);
       } else {
         setErr(res.data.message);
       }
     });
-  }, [user.userId]);
+  }, [user?.userId]);
 
   //calculate the difference in time
   const calculateDays = (due_date: string) => {

@@ -2,32 +2,40 @@ import api from "./api";
 import logo from "@/assets/logo.png";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "./auth";
 function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
+  const { user, setUser, setAuthenticated } = useAuth();
 
   //login functionality
   const logIn: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    const user = {
+    const userLoginInfo = {
       email: data.get("email"),
       password: data.get("password"),
     };
+
     api
-      .post(`/login`, user)
+      .post(`/login`, userLoginInfo)
       .then((res) => {
         if (res.status == 200) {
-          if (res.data.role == "user") {
-            navigate("/");
-          } else {
-            navigate("/dashboard");
-          }
+          setUser(res.data.data);
+          setAuthenticated(true);
         }
       })
       .catch((error) => {
         setError(error.response?.data?.error);
+        setAuthenticated(false);
         console.error(error);
+      })
+      .finally(() => {
+        if (user?.role === "admin") {
+          navigate("/dashboard");
+        } else {
+          navigate("/");
+        }
       });
   };
   return (

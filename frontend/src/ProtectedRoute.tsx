@@ -1,45 +1,23 @@
-import { useEffect, useState, type Dispatch, type SetStateAction } from "react";
-import api from "./api";
-import { Navigate, Outlet, useLocation } from "react-router-dom";
-import type { User } from "./types/types";
+import { Navigate, Outlet } from "react-router-dom";
+import { useAuth } from "./auth";
 
-export type ProtectedRouteContext = {
-  user: User;
-  setUser: Dispatch<SetStateAction<User | null>>;
+type ProtectedRouteProp = {
+  allowedRole: "user" | "admin";
 };
 
-function ProtectedRoute() {
-  const location = useLocation();
-  const [authenticated, setAuthenticated] = useState<null | boolean>(null);
-  const [user, setUser] = useState<User | null>(null);
-  useEffect(() => {
-    api
-      .get("/")
-      .then((res) => {
-        setUser(res.data.user);
-        setAuthenticated(true);
-      })
-      .catch(() => {
-        setAuthenticated(false);
-      });
-  }, [user?.role]);
+function ProtectedRoute({ allowedRole }: ProtectedRouteProp) {
+  const { user, authenticated } = useAuth();
 
-  //redirect to login page
-  if (authenticated == null) {
-    return <div>Loading ...</div>;
+  //redirect unauthorized access
+  if (!authenticated) {
+    return <Navigate to="/login" />;
+  }
+  //redirect unauthorized access
+  if (authenticated && user?.role !== allowedRole) {
+    return <Navigate to="/login" />;
   }
 
-  //redirect to login page
-  if (authenticated == false) {
-    return <Navigate to="/login" replace />;
-  }
-
-  //redirect an already logged in user to the admin page
-  if (user?.role === "admin" && location.pathname === "/") {
-    return <Navigate to="/dashboard" replace />;
-  }
-
-  return <Outlet context={{ user, setUser }} />;
+  return <Outlet />;
 }
 
 export default ProtectedRoute;

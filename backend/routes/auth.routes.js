@@ -35,6 +35,7 @@ router.post("/login", async (req, res) => {
       name: user.name,
       role: user.role,
     };
+
     const token = jwt.sign(payload, jwtSecret, { expiresIn: "1h" });
     res.cookie("token", token, {
       ...cookieOptions,
@@ -43,7 +44,7 @@ router.post("/login", async (req, res) => {
 
     return res.status(200).json({
       message: "log in successfull!!",
-      role: user.role,
+      role: payload,
     });
   } catch {
     return res.status(500).json({ error: "Could not log in" });
