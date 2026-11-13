@@ -8,16 +8,20 @@ type ProtectedRouteProp = {
 function ProtectedRoute({ allowedRole }: ProtectedRouteProp) {
   const { user, authenticated } = useAuth();
 
-  //redirect unauthorized access
+  //redirect unauthenticated access
   if (!authenticated) {
     return <Navigate to="/login" />;
   }
+
   //redirect unauthorized access
-  if (authenticated && user?.role !== allowedRole) {
-    return <Navigate to="/login" />;
+  if (user?.role !== allowedRole) {
+    return <Navigate to="/unauthorized" />;
   }
 
-  return <Outlet />;
+  //continue to selected destination
+  if (authenticated && user?.role === allowedRole) {
+    return <Outlet />;
+  }
 }
 
 export default ProtectedRoute;

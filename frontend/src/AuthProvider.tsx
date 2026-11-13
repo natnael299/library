@@ -10,7 +10,7 @@ type AuthProvider = {
 function AuthProvider({ children }: AuthProvider) {
   const [authenticated, setAuthenticated] = useState(false);
   const [user, setUser] = useState<User | null>(null);
-
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     api
       .get("/")
@@ -20,11 +20,16 @@ function AuthProvider({ children }: AuthProvider) {
       })
       .catch(() => {
         setAuthenticated(false);
+      })
+      .finally(() => {
+        setLoading(false);
       });
   }, [user, setUser]);
 
   return (
-    <AuthContext value={{ user, setUser, authenticated, setAuthenticated }}>
+    <AuthContext
+      value={{ user, setUser, authenticated, setAuthenticated, loading }}
+    >
       {children}
     </AuthContext>
   );

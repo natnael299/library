@@ -12,7 +12,7 @@ function Profile() {
   const [message, setMessage] = useState<string | null>(null);
   const [err, setErr] = useState<string | null>(null);
   const navigate = useNavigate();
-  const { user, setUser } = useAuth();
+  const { user, setUser, setAuthenticated } = useAuth();
   const id = user?.userId;
 
   useEffect(() => {
@@ -39,7 +39,8 @@ function Profile() {
     const res = await api.post(`/logout`);
     if (res.status == 200) {
       setUser(null);
-      navigate("/login");
+      setAuthenticated(false);
+      navigate("/login", { replace: true });
     }
   };
   return (

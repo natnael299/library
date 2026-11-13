@@ -12,11 +12,19 @@ import LoanBook from "./sections/admin_pages/LoanBook";
 import AdminLayout from "./layouts/AdminLayout";
 import CreateBook from "./sections/admin_pages/CreateBook";
 import ProtectedRoute from "./ProtectedRoute";
+import UnauthorizedPage from "./UnauthorizedPage";
+import { useAuth } from "./auth";
 
 function App() {
+  const { loading } = useAuth();
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
+      <Route path="/unauthorized" element={<UnauthorizedPage />} />
 
       <Route element={<ProtectedRoute allowedRole="user" />}>
         {/** the user side */}

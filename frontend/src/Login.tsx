@@ -1,16 +1,27 @@
 import api from "./api";
 import logo from "@/assets/logo.png";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "./auth";
 function Login() {
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
-  const { user, setUser, setAuthenticated } = useAuth();
+  const [loading, setLoading] = useState(false);
+  const { user, setUser, authenticated, setAuthenticated } = useAuth();
+
+  useEffect(() => {
+    if (authenticated && user?.role === "admin") {
+      navigate("/dashboard");
+    } else if (authenticated && user?.role === "user") {
+      navigate("/");
+    }
+  }, [authenticated, user, navigate]);
 
   //login functionality
   const logIn: React.SubmitEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+
+    setLoading(true);
     const data = new FormData(e.currentTarget);
     const userLoginInfo = {
       email: data.get("email"),
@@ -31,11 +42,7 @@ function Login() {
         console.error(error);
       })
       .finally(() => {
-        if (user?.role === "admin") {
-          navigate("/dashboard");
-        } else {
-          navigate("/");
-        }
+        setLoading(false);
       });
   };
   return (
@@ -85,7 +92,7 @@ function Login() {
                 type="submit"
                 className="w-full py-2 px-3.5 text-sm rounded-md font-semibold cursor-pointer tracking-wide text-white border border-blue-600 bg-blue-600 hover:bg-blue-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
               >
-                Sign in
+                {loading ? "Signning in ..." : "Sign in"}
               </button>
               {error && <p className="text-red-500">{error}</p>}
             </form>
